@@ -2,6 +2,8 @@
 #define WORD_H
 
 #include <string>
+#include <algorithm>
+#include <iterator>
 using namespace std;
 
 // empty classes to represent different exceptions
