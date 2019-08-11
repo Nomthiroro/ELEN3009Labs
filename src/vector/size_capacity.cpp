@@ -20,3 +20,14 @@ int main()
 
     return 0;
 }
+
+/*Exercise 2.1
+ * The size of a vector refers to the number of elements that are currently 
+ * in the vector. Whereas the capacity of a vector refers to the largest size
+ * it can be before it needs to reallocate memory
+ * 
+ * 
+ * A vector's capacity grows the way it does because each time the vector's
+ * capacity increases, the elements which are present in the vector are copied
+ * in order to minimize the cost of copying, the vector's capacity grows exponentially
+ * */
