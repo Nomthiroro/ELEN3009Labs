@@ -110,33 +110,72 @@ TEST_CASE("Word which is not queryable cannot be found") {
 
 // ------------- Tests for Paragraph ----------------
 
-//TEST_CASE("Word cannot be found in empty Paragraph") {
-//}
+TEST_CASE("Word cannot be found in empty Paragraph") {
+    auto line = Line{""};
+    auto paragraph = Paragraph{};
+    paragraph.addLine(line);
+    auto[found, line_numbers] = paragraph.contains(Word{"Daddy"});
+    CHECK_FALSE(found);
+    CHECK_FALSE(vector<int>{1,4,6} == line_numbers);
+}
 //
-//TEST_CASE("Word not present in Paragraph cannot be found") {
-//}
+TEST_CASE("Word not present in Paragraph cannot be found") {
+    auto line = Line{"Doing this thing for the second time"};
+    auto paragraph = Paragraph{};
+    paragraph.addLine(line);
+    //auto wordNotInLine = Word{"myself"};
+    auto[found, line_numbers] = paragraph.contains(Word{"myself"});
+    CHECK_FALSE(found);
+    CHECK_FALSE(vector<int>{2} == line_numbers);
+}
 //
-//TEST_CASE("Line number of a Word appearing once in Paragraph is returned") {
-//}
+TEST_CASE("Line number of a Word appearing once in Paragraph is returned") {
+        auto line = Line{"Doing this thing for the third time"};
+        auto paragraph = Paragraph{};
+        paragraph.addLine(line);
+        //auto searchWord = Word{"this"};
+        auto[found, line_numbers] = paragraph.contains(Word{"this"});
+        CHECK(found);
+        CHECK(vector<int>{1} == line_numbers);
+}
 //
-//TEST_CASE("Line numbers of a Word appearing in multiple Lines of a Paragraph is returned") {
-//}
+TEST_CASE("Line numbers of a Word appearing in multiple Lines of a Paragraph is returned") {
+    auto line = Line{"Doing this thing for the third time"};
+    auto line2 = Line{"the third of some month is someones birthday"};
+    auto paragraph = Paragraph{};
+    paragraph.addLine(line);
+    paragraph.addLine(line2);
+     auto[found, line_numbers] = paragraph.contains(Word{"third"});
+     CHECK(found);
+    CHECK(vector<int>{1, 2} == line_numbers);
+    
+}
 //
-//TEST_CASE("Line numbers returned account for an empty Line") {
+TEST_CASE("Line numbers returned account for an empty Line") {
 //// If the first line of the paragraph is empty, and the word being searched for
 //// is on the second line, the vector returned should be: [2]
-//}
+     auto line = Line{""};
+    auto line2 = Line{"Doing this thing for the third time"};
+    auto paragraph = Paragraph{};
+    paragraph.addLine(line);
+    paragraph.addLine(line2);
+    auto[found, line_numbers] = paragraph.contains(Word{"third"});
+    CHECK(found);
+    CHECK(line_numbers[1] == 2);
+    
+
+}
 //
 //// Integration test - both Paragraph and File Reader are tested together
-//TEST_CASE("File can be read into Paragraph and successfully searched") {
+/*TEST_CASE("File can be read into Paragraph and successfully searched") {
 //	// make sure that alice.txt is in the right location for this to work!
 //	// it must be in the same directory as the executable
-//	auto filereader = FileReader{"alice.txt"};
-//	auto paragraph = Paragraph{};
-//	filereader.readFileInto(paragraph);
+auto filereader = FileReader{"alice.txt"};
+auto paragraph = Paragraph{};
+filereader.readFileInto(paragraph);
 //
-//	auto[found, line_numbers] = paragraph.contains(Word{"Daddy"});
+auto[found, line_numbers] = paragraph.contains(Word{"Daddy"});
 //
-//	CHECK(found);
-//	CHECK(vector<int>{1,4,6} == line_numbers);
-//}
+CHECK(found);
+CHECK(vector<int>{1,4,6} == line_numbers);
+}*/

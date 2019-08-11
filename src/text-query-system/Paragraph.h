@@ -20,7 +20,8 @@ public:
 	tuple<bool, vector<int>> contains(const Word& search_word) const;	
 
 private:	
-
+    
+    vector<Line> paragraph;
 };
 
 #endif
